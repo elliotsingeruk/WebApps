@@ -7,7 +7,7 @@
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="./css/stylesheet.css" type="text/css" />
-	<title>Welcome - CPL</title>
+	<title>Publications - CPL</title>
 </head>
 
 <body onload="onLoad()">
@@ -20,36 +20,29 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="./publications.html">Browse Publications</a>
+					<a class="nav-link" href="./index.html">Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="contact.html">Browse Publications<span
+							class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item" id="signinButton">
-					
 				</li>
 			</ul>
 		</div>
 	</nav>
 
-	<section id="search-pane">
-		<div id="search-form">
-			<form class="form-inline">
-				<input id="pane-bar" class="form-control" type="search" placeholder="Search Publications"
-					aria-label="Search">
-				<button id="pane-button" class="btn btn-outline-primary" type="submit">Search</button>
-			</form>
-		</div>
-
-
-	</section>
 	<section id="publications">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-2" id="filter">
 					<form class="sticky-top">
-
+						<div class="form-group">
+							<label class="form-check-label" for="sidebar-search">Search Publications</label>
+							<input id="sidebar-search" class="form-control" type="search"
+								placeholder="Search Publications" aria-label="Search">
+						</div>
 						<div class="form-group">
 							<label class="form-check-label">Categories</label>
 							<ul>
@@ -320,8 +313,8 @@
 					<form id="signInForm">
 						<div class="form-group">
 							<label for="email">Email address</label>
-							<input tabindex="0" type="email" class="form-control" id="email" aria-describedby="emailHelp"
-								placeholder="Enter email" name="email" data-container="body" data-trigger="focus" data-placement="top" data-content="">
+							<input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+								placeholder="Enter email" name="email">
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
@@ -374,6 +367,7 @@
 		</div>
 	  </div>
 	  <!--end sign out modal-->
+
 
 
 

@@ -1,0 +1,68 @@
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Open sans', sans-serif;
+}
+nav{
+    font-family: 'Open sans', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+.nav-item{
+    padding-left: 10px;
+}
+#search-pane{
+    width: 100vw;
+    height: 50vh;
+    margin: 0;
+    background-image: url(../images/search-back.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+#search-form{
+    width: 40vw;
+    margin: 0 auto;
+    padding-top: 22vh;
+    
+
+}
+#pane-bar{
+    width: 80%;
+}
+#pane-button{
+    width: 20%;
+}
+@media (max-width: 950px) { 
+    nav{
+        margin: 0px;
+    }
+    #search-form{
+        width: 90vw;
+    }
+}
+#publications{
+    width: 100vw;
+    margin: 0;
+    background-color: lightgray;
+}
+#filter form{
+    padding-top: 5px;
+}
+.card-container{
+    margin: 0 auto;
+    padding: 10px;
+}
+.card{
+    margin: 0 auto;
+}
+.hidden-label{
+    display: none;
+}
+ul{
+    list-style-type: none;
+}
