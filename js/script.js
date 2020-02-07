@@ -27,14 +27,35 @@ function getName(){
           jwtArray.name +
         '</button>' +
         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-          '<a class="dropdown-item" href="#">My Account</a>' +
+          '<a class="dropdown-item" onclick="getUser()" href="#">My Account</a>' +
           '<a class="dropdown-item" href="#">Saved Publications</a>' +
           '<button type="button" data-toggle="modal" data-target="#signOutConfirm" class="btn btn-info dropdown-item">Sign Out</button>' +
         '</div>' +
       '</div>')
     }
 }
-
+function getUser(){
+    var jwtArray = parseJwt();
+    if(jwtArray == false){
+        reAuth();
+    } else {
+        $.ajax({
+            type: "get",
+            url: '/api/user/get.php?id=' + jwtArray.id,
+            success: function (data) {
+                if(data == "Invalid Token"){
+                    reAuth();
+                } else {
+               var json = JSON.parse(data);
+               $('#editEmail').val(json.email);
+               $('#editFirstName').val(json.firstName);
+               $('#editLastName').val(json.lastName);
+               $('#userAccount').modal('show');           
+                }     
+            }
+        });
+    }
+}
 
 
 
@@ -95,6 +116,7 @@ function signInPost(type) {
         success: function (data) {
             if (type === 0) {
                 if ((data.substring(0, 4)) === "jwt:"){
+                    Cookies.remove('jwt');
                     Cookies.set('jwt', data.substring(4));
                     $('#signInForm')[0].reset();
                     $('#loginModal').modal('hide');
@@ -140,4 +162,9 @@ function parseJwt() {
 } else {
     return false;
 }
+}
+function reAuth(){
+    alert("Session has expired, please sign in again");
+    signIn();
+    $('#loginModal').modal('show');
 }

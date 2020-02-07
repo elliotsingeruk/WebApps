@@ -321,25 +321,25 @@
 						<div class="form-group">
 							<label for="email">Email address</label>
 							<input tabindex="0" type="email" class="form-control" id="email" aria-describedby="emailHelp"
-								placeholder="Enter email" name="email" data-container="body" data-trigger="focus" data-placement="top" data-content="">
+								placeholder="Enter email" name="email" data-container="body" data-trigger="focus" data-placement="top" data-content="" required>
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
-							<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+							<input type="password" class="form-control" id="password" placeholder="Password" name="password" pattern=".{6,}" required>
 						</div>
 						<div class="form-group">
 							<label for="confirmPassword" class="hidden-label">Confirm Password</label>
 							<input type="hidden" class="form-control" id="confirmPassword"
-								placeholder="Confirm Password" name="confirmPassword">
+								placeholder="Confirm Password" name="confirmPassword" minlength="7" required>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="firstName" class="hidden-label">First Name</label>
-								<input type="hidden" class="form-control" id="firstName" placeholder="First Name" name="firstName">
+								<input type="hidden" class="form-control" id="firstName" placeholder="First Name" name="firstName" required>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="lastName" class="hidden-label">Last Name</label>
-								<input type="hidden" class="form-control" id="lastName" placeholder="Last Name" name="lastName">
+								<input type="hidden" class="form-control" id="lastName" placeholder="Last Name" name="lastName" required>
 							</div>
 						</div>
 					</form>
@@ -374,8 +374,52 @@
 		</div>
 	  </div>
 	  <!--end sign out modal-->
-
-
+	  <!--user account modal-->
+	  <div class="modal fade" tabindex="-1" role="dialog" id="userAccount">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title">Your Account Settings</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<form id="accountEditForm">
+					<div class="form-group">
+						<label for="editEmail">Email address</label>
+						<input tabindex="0" type="email" class="form-control" id="editEmail" aria-describedby="emailHelp"
+							placeholder="Enter email" name="email" data-container="body" data-trigger="focus" data-placement="top" data-content="">
+					</div>
+					<div class="form-group">
+						<label for="editPassword">Password</label>
+						<input type="password" class="form-control" id="editPassword" placeholder="Leave blank to not change password" name="password">
+					</div>
+					<div class="form-group">
+						<label for="editConfirmPassword" class="hidden-label">Confirm Password</label>
+						<input type="password" class="form-control" id="editConfirmPassword"
+							placeholder="Leave blank to not change password" name="confirmPassword">
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="editFirstName" class="hidden-label">First Name</label>
+							<input type="text" class="form-control" id="editFirstName" placeholder="First Name" name="firstName">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="editLastName" class="hidden-label">Last Name</label>
+							<input type="text" class="form-control" id="editLastName" placeholder="Last Name" name="lastName">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" onclick="signOut()" class="btn btn-primary">Update</button>
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <!--end user account modal-->
 
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
