@@ -20,8 +20,8 @@ function authenticateUser($postEmail, $postPassword){
             $refreshJWT = $user->generateRefreshJWT();
             //set the refresh token to a http only cookie so it is not vunerable for XSS
             header("Set-Cookie: refreshJWT=" . $refreshJWT . "; httpOnly");
-            return json_encode(array('response' => 'OK', 'access' => $user->generateAccessJWT()));
+            return json_encode(array('message' => 'OK', 'access' => $user->generateAccessJWT()));
         }
     }
-    return json_encode(array('response' => 'Incorrect email or password'));
+    return json_encode(array('message' => 'Incorrect email or password'));
 }

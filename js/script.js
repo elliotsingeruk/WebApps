@@ -24,7 +24,7 @@ function getName(){
         //if a jwt is present, run the following
         $('#signinButton').html('<div class="dropdown">' +
         '<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-          jwtArray.name +
+          jwtArray.firstName + " " + jwtArray.lastName +
         '</button>' +
         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
           '<a class="dropdown-item" onclick="getUser()" href="#">My Account</a>' +
@@ -61,7 +61,7 @@ function getUser(){
 
 function signOut(){
     //remove the jwt stored as a cookie
-    Cookies.remove('jwt');
+    Cookies.remove('access');
     //hide the sign out modal after the cookie has been removed
     $('#signOutConfirm').modal('hide');
     //re-run the javascript to update the page
@@ -75,7 +75,7 @@ function signUp() {
     $("#firstName").attr('type', 'text');
     $("#lastName").attr('type', 'text');
     $("#modalTitle").empty().append("Sign Up");
-    $("#submitSignIn").html('<button type="submit" class="btn btn-primary" id="submitSignIn" onclick="signInPost(1)">Sign Up</button>')
+    $("#submitSignIn").html('<button type="submit" class="btn btn-primary" id="submitSignIn" onclick="signUpPost()">Sign Up</button>')
     $("#signUpPrompt").empty().append("Already a user? Click here to sign in")
     $("#signUpPrompt").on("click", signIn);
 }
@@ -87,10 +87,53 @@ function signIn() {
     $("#firstName").attr('type', 'hidden');
     $("#lastName").attr('type', 'hidden');
     $("#modalTitle").empty().append("Sign In");
-    $("#submitSignIn").html('<button type="submit" class="btn btn-primary" id="submitSignIn" onclick="signInPost(0)">Sign In</button>')
+    $("#submitSignIn").html('<button type="submit" class="btn btn-primary" id="submitSignIn" onclick="logInPost()">Sign In</button>')
     $("#signUpPrompt").empty().append("No account? Click here to sign up")
     $("#signUpPrompt").on("click", signUp);
 }
+function logInPost(){
+    var form = $('#signInForm')
+    $.ajax({
+        type: "POST",
+        url: '/api/auth/login.php',
+        data: form.serialize(),
+        success: function (data) {
+            var response = JSON.parse(data);
+            if(response.message === "OK"){
+                Cookies.set('access', response.access)
+                $('#signInForm')[0].reset();
+                $('#loginModal').modal('hide');
+                onLoad();
+            } else {
+                $('#email').popover({trigger: 'focus'})
+                $('#email').attr("data-content", response.message)
+                $('#email').popover('show')
+            }
+        }
+    })
+}
+function signUpPost(){
+    var form = $('#signInForm')
+    $.ajax({
+        type: "POST",
+        url: '/api/user/new.php',
+        data: form.serialize(),
+        success: function (data) {
+            var response = JSON.parse(data);
+            if(response.message === "OK"){
+                signIn();
+                $('#email').popover({trigger: 'focus'})
+                $('#email').attr("data-content", "Sign in with your new account below")
+                $('#email').popover('show')
+            } else {
+                $('#email').popover({trigger: 'focus'})
+                $('#email').attr("data-content", response.message)
+                $('#email').popover('show')
+            }
+        }
+    })
+}
+/*
 function signInPost(type) {
     var hiddenField = document.createElement("input");
     hiddenField.setAttribute("type", "hidden");
@@ -150,8 +193,9 @@ function signInPost(type) {
         }
     });
 }
+*/
 function parseJwt() {
-    var token = Cookies.get("jwt");
+    var token = Cookies.get("access");
     if(token != null){
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
