@@ -11,6 +11,7 @@ use \Firebase\JWT\JWT;
 //start the User class
 class User
 {
+    //private variables that can only be access from within the class
     private $id;
     private $email;
     private $firstName;
@@ -61,7 +62,7 @@ class User
         $tokenId = base64_encode(random_bytes(32));
         $issuedAt = time();
         $notBefore = $issuedAt;
-        $expire = $notBefore + 900;
+        $expire = $notBefore + 900; //15 min expiration period
         $payload = array(
             "iat" => $issuedAt,
             "jti" => $tokenId,

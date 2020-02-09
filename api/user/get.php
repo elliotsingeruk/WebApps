@@ -13,6 +13,7 @@ if(isset($_COOKIE["access"])){
         global $key;
         $decodedJwt = JWT::decode($_COOKIE['access'], $key, array('HS256'));
         if (!isset($_GET["id"])){
+            //if the url contains ?id then return the details of the user who requested it using their access token
             global $db;
             $result = $db->query("SELECT firstName, lastName, email FROM users WHERE id = '$decodedJwt->id'");
             $row = $result->fetch_assoc();
@@ -22,6 +23,7 @@ if(isset($_COOKIE["access"])){
                 echo (json_encode(array('message' => 'Invalid Account')));
             }
         } else if ($decodedJwt->permission > 1 && isset($_GET["id"]) && $_GET["id"] != 'all'){
+            //if the user has a permission level higher than 1, then return the requested user account.
             global $db;
             $id = $db->real_escape_string($_GET['id']);
             $result = $db->query("SELECT firstName, lastName, email FROM users WHERE id = '$id'");
@@ -32,6 +34,7 @@ if(isset($_COOKIE["access"])){
                 echo (json_encode(array('message' => 'Invalid Account')));
             }
         } else if ($decodedJwt->permission > 1 && $_GET["id"] == 'all'){
+            //if the user has a permission level higher than 1, and all user accounts are requested, then return all users
             global $db;
             $result = $db->query("SELECT id, firstName, lastName, email FROM users");
             if ($result->num_rows > 0) {

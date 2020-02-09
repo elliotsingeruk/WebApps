@@ -8,7 +8,7 @@ require_once '../jwt/SignatureInvalidException.php';
 require_once '../jwt/JWT.php';
 
 use \Firebase\JWT\JWT;
-
+//not done
 if(isset($_COOKIE['access'])){
     try {
         global $key;
